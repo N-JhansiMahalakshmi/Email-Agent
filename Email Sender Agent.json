@@ -1,0 +1,147 @@
+{
+  "name": "Email Sender Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -432,
+        -48
+      ],
+      "id": "f127c5f5-6bde-4584-89f9-3aa1856fce28",
+      "name": "When chat message received",
+      "webhookId": "2ec81960-7ac4-4bbb-afc8-d7bea382128c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a professional email assistant.\nDo not copy the draft email text exactly as provide instead,write it into a polished version with:\n-A clear and engaging subject line.\n-A professional, concise, and well-structured body.\n\nAlways sign off with:\nRegards\nJhansi"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -224,
+        -48
+      ],
+      "id": "bd4ba419-68eb-4cb2-8c64-4a2b4da4a4aa",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -368,
+        160
+      ],
+      "id": "ac194ee2-49f8-4880-b5a9-5bc33fecab8c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "8AP5x2DCnLMxoSja",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -224,
+        160
+      ],
+      "id": "f10193cd-896b-4476-9ff8-8149e6b192be",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        48,
+        160
+      ],
+      "id": "61b52f99-76fe-4244-8c96-7fa24e009e96",
+      "name": "Send a message in Gmail",
+      "webhookId": "5cdcaa10-8563-4e8c-9fbb-fbef696d9444",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "sHMkLlU7uEPjLgSS",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a204f855-91df-4426-b8f0-b22905559cb2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b36081f61bebdacea52ff91a3ece62c1bc58ed73d81bffb3d2ecae52c4b53704"
+  },
+  "id": "QNzD5TYaZ3FB8H0D",
+  "tags": []
+}

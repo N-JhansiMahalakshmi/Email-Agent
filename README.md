@@ -38,4 +38,4 @@ The agent will prompt you for an action or a topic. Example interaction:
 | **User:** Add a line about the agenda being attached. | **Output:** Uses memory to modify the *previous* draft and includes the new instruction before sending. |
 
 -----
-Project Link: [https://github.com/[N-JhansiMahalakshmi]/Email-Agent](https://www.google.com/search?q=https://github.com/%5BYour-N-JhansiMahalakshmi%5D/Email-Agent)
+Project Link: [[https://github.com/[N-JhansiMahalakshmi](https://github.com/N-JhansiMahalakshmi/Email-Agent)]
